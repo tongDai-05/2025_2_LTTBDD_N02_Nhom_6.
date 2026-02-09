@@ -1,24 +1,20 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(MaterialApp(
-    home: ManHinhChinh(),
-    debugShowCheckedModeBanner: false,
-  ));
+  runApp(MaterialApp(home: ManHinhChinh(), debugShowCheckedModeBanner: false));
 }
 
 class ManHinhChinh extends StatefulWidget {
   @override
   State<ManHinhChinh> createState() => _ManHinhChinhState();
 }
+
 class _ManHinhChinhState extends State<ManHinhChinh> {
-  List<String> ds = ['Hà Nội', 'TP.HCM', 'Đà Nẵng'];
-  List<String> dsnhietdo = ['32°C', '35°C', '30°C'];
-  List<IconData> dsicon = [
-    Icons.wb_sunny,
-    Icons.wb_sunny,
-    Icons.cloud
-  ];
+  List ds = ['Hà Nội', 'TP.HCM', 'Đà Nẵng'];
+  List dsnhietdo = ['32°C', '20°C', '24°C'];
+  List dsicon = [Icons.wb_sunny, Icons.thunderstorm, Icons.cloud];
+  List dsMoTa = ['Có nắng', 'Có mưa, Cảnh báo sấm sét', 'Nhiều mây'];
+
   String keyword = "";
   @override
   Widget build(BuildContext context) {
@@ -42,9 +38,7 @@ class _ManHinhChinhState extends State<ManHinhChinh> {
             child: ListView.builder(
               itemCount: ds.length,
               itemBuilder: (context, index) {
-                if (!ds[index]
-                    .toLowerCase()
-                    .contains(keyword.toLowerCase())) {
+                if (!ds[index].toLowerCase().contains(keyword.toLowerCase())) {
                   return const SizedBox();
                 }
                 return GestureDetector(
@@ -54,13 +48,17 @@ class _ManHinhChinhState extends State<ManHinhChinh> {
                       MaterialPageRoute(
                         builder: (context) => ChiTietThoiTiet(
                           tenTP: ds[index],
+                          nhietDo: dsnhietdo[index],
+                          moTa: dsMoTa[index],
                         ),
                       ),
                     );
                   },
                   child: Card(
                     margin: const EdgeInsets.symmetric(
-                        horizontal: 12, vertical: 8),
+                      horizontal: 12,
+                      vertical: 8,
+                    ),
                     elevation: 4,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),
@@ -74,7 +72,9 @@ class _ManHinhChinhState extends State<ManHinhChinh> {
                       title: Text(
                         ds[index],
                         style: const TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold),
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                       subtitle: Text(
                         dsnhietdo[index],
@@ -112,8 +112,24 @@ class _ManHinhChinhState extends State<ManHinhChinh> {
 
 class ChiTietThoiTiet extends StatelessWidget {
   final String tenTP;
+  final String nhietDo;
+  final String moTa;
 
-  const ChiTietThoiTiet({super.key, required this.tenTP});
+  const ChiTietThoiTiet({
+    super.key,
+    required this.tenTP,
+    required this.nhietDo,
+    required this.moTa,
+  });
+  String getImageByWeather() {
+    if (moTa == 'Nhiều mây') {
+      return 'imgs/nhieumay.jpg';
+    } else if (moTa == 'Có mưa, Cảnh báo sấm sét') {
+      return 'imgs/mua.jpg';
+    } else{
+      return 'imgs/nang.jpg';
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -122,13 +138,35 @@ class ChiTietThoiTiet extends StatelessWidget {
         title: Text("Chi tiết $tenTP"),
         backgroundColor: Colors.blue[700],
       ),
-      body: const Center(
-        child: Text(
-          "Chi tiết Tongđai",
-          style: TextStyle(
-            fontSize: 26,
-            fontWeight: FontWeight.bold,
-          ),
+
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              tenTP,
+              style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 10),
+            Image.asset(
+              getImageByWeather(),
+              width: 200,
+              height: 200,
+              fit: BoxFit.cover,
+            ),
+            const SizedBox(height: 10),
+
+            Text(
+              nhietDo,
+              style: const TextStyle(fontSize: 26, color: Colors.red),
+            ),
+            const SizedBox(height: 10),
+
+            Text(
+              moTa,
+              style: const TextStyle(fontSize: 22, color: Colors.orange),
+            ),
+          ],
         ),
       ),
     );
