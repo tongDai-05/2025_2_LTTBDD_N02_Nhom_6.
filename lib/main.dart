@@ -1,12 +1,7 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(
-    MaterialApp(
-      home: ManHinhChinh(),
-      debugShowCheckedModeBanner: false,
-    ),
-  );
+  runApp(MaterialApp(home: ManHinhChinh(), debugShowCheckedModeBanner: false));
 }
 
 class ManHinhChinh extends StatefulWidget {
@@ -17,11 +12,7 @@ class ManHinhChinh extends StatefulWidget {
 class _ManHinhChinhState extends State<ManHinhChinh> {
   List<String> ds = ['Hà Nội', 'TP.HCM', 'Đà Nẵng'];
   List<String> dsnhietdo = ['32°C', '35°C', '30°C'];
-  List<IconData> dsicon = [
-    Icons.wb_sunny,
-    Icons.wb_sunny,
-    Icons.cloud,
-  ];
+  List<IconData> dsicon = [Icons.wb_sunny, Icons.wb_sunny, Icons.cloud];
 
   String keyword = "";
 
@@ -29,30 +20,37 @@ class _ManHinhChinhState extends State<ManHinhChinh> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Dự báo Thời tiết',
-          style: TextStyle(fontSize: 20, color: Colors.white),
-        ),
         backgroundColor: Colors.blue[700],
+        title: Row(
+          children: [
+            Image.asset('imgs/icon.jpg', width: 30, height: 30),
+            const SizedBox(width: 10),
+            const Text(
+              'Dự báo Thời tiết',
+              style: TextStyle(fontSize: 20, color: Colors.white),
+            ),
+          ],
+        ),
       ),
+
       body: Column(
         children: [
           Expanded(
             child: ListView.builder(
               itemCount: ds.length,
               itemBuilder: (context, index) {
-                if (!ds[index]
-                    .toLowerCase()
-                    .contains(keyword.toLowerCase())) {
+                if (!ds[index].toLowerCase().contains(keyword.toLowerCase())) {
                   return const SizedBox();
                 }
 
                 return Card(
-                  margin:
-                      const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                  margin: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 8,
+                  ),
                   elevation: 4,
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20), 
+                    borderRadius: BorderRadius.circular(20),
                   ),
                   child: ListTile(
                     leading: Icon(
