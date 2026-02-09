@@ -20,14 +20,18 @@ class _ManHinhChinhState extends State<ManHinhChinh> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.blue[700],
+        backgroundColor: Colors.blue[800],
         title: Row(
           children: [
             Image.asset('imgs/icon.jpg', width: 50, height: 50),
-            const SizedBox(width: 10),
+            const SizedBox(width: 30),
             const Text(
               'Dự báo Thời tiết',
-              style: TextStyle(fontSize: 20, color: Colors.white),
+              style: TextStyle(
+                fontSize: 35,
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ],
         ),
@@ -37,7 +41,7 @@ class _ManHinhChinhState extends State<ManHinhChinh> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => (TrangProfile())),
+                MaterialPageRoute(builder: (context) => TrangProfile()),
               );
             },
             icon: Icon(Icons.person),
@@ -123,16 +127,17 @@ class _ManHinhChinhState extends State<ManHinhChinh> {
 }
 
 class ChiTietThoiTiet extends StatelessWidget {
-  final String tenTP;
-  final String nhietDo;
-  final String moTa;
+  String tenTP;
+  String nhietDo;
+  String moTa;
 
-  const ChiTietThoiTiet({
+  ChiTietThoiTiet({
     super.key,
     required this.tenTP,
     required this.nhietDo,
     required this.moTa,
   });
+
   String getImageByWeather() {
     if (moTa == 'Nhiều mây') {
       return 'imgs/nhieumay.jpg';
@@ -143,6 +148,30 @@ class ChiTietThoiTiet extends StatelessWidget {
     }
   }
 
+  List gio = ['0h', '3h', '6h', '9h', '12h', '15h', '18h', '21h', '24h'];
+  List nhietDoTheoGio = [
+    '24°C',
+    '23°C',
+    '25°C',
+    '28°C',
+    '32°C',
+    '33°C',
+    '30°C',
+    '27°C',
+    '25°C',
+  ];
+  List iconTheoGio = [
+    Icons.nights_stay,
+    Icons.nights_stay,
+    Icons.wb_sunny,
+    Icons.wb_sunny,
+    Icons.wb_sunny,
+    Icons.wb_sunny,
+    Icons.cloud,
+    Icons.cloud,
+    Icons.nights_stay,
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -150,11 +179,10 @@ class ChiTietThoiTiet extends StatelessWidget {
         title: Text("Chi tiết $tenTP"),
         backgroundColor: Colors.blue[700],
       ),
-
-      body: Center(
+      body: SingleChildScrollView(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            const SizedBox(height: 20),
             Text(
               tenTP,
               style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
@@ -162,22 +190,70 @@ class ChiTietThoiTiet extends StatelessWidget {
             const SizedBox(height: 10),
             Image.asset(
               getImageByWeather(),
-              width: 200,
               height: 200,
+              width: 200,
               fit: BoxFit.cover,
             ),
             const SizedBox(height: 10),
-
             Text(
               nhietDo,
               style: const TextStyle(fontSize: 26, color: Colors.red),
             ),
-            const SizedBox(height: 10),
-
             Text(
               moTa,
               style: const TextStyle(fontSize: 22, color: Colors.orange),
             ),
+            const SizedBox(height: 20),
+            const Text(
+              "Dự báo theo giờ",
+              style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 12),
+            LayoutBuilder(
+              builder: (context, constraints) {
+                double itemWidth = constraints.maxWidth / gio.length;
+
+                return Row(
+                  children: List.generate(gio.length, (index) {
+                    return SizedBox(
+                      width: itemWidth,
+                      child: Container(
+                        margin: const EdgeInsets.symmetric(horizontal: 4),
+                        padding: const EdgeInsets.symmetric(vertical: 10),
+                        decoration: BoxDecoration(
+                          color: Colors.blue[50],
+                          borderRadius: BorderRadius.circular(18),
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              gio[index],
+                              style: const TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            const SizedBox(height: 6),
+                            Icon(
+                              iconTheoGio[index],
+                              color: Colors.orange,
+                              size: 32,
+                            ),
+                            const SizedBox(height: 6),
+                            Text(
+                              nhietDoTheoGio[index],
+                              style: const TextStyle(fontSize: 14),
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  }),
+                );
+              },
+            ),
+            const SizedBox(height: 25),
           ],
         ),
       ),
