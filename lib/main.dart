@@ -15,9 +15,9 @@ class ManHinhChinh extends StatefulWidget {
 }
 
 class _ManHinhChinhState extends State<ManHinhChinh> {
-  List ds = ['Hà Nội', 'TP.HCM', 'Đà Nẵng'];
-  List dsnhietdo = ['32°C', '35°C', '30°C'];
-  List dsicon = [
+  List<String> ds = ['Hà Nội', 'TP.HCM', 'Đà Nẵng'];
+  List<String> dsnhietdo = ['32°C', '35°C', '30°C'];
+  List<IconData> dsicon = [
     Icons.wb_sunny,
     Icons.wb_sunny,
     Icons.cloud,
@@ -35,7 +35,6 @@ class _ManHinhChinhState extends State<ManHinhChinh> {
         ),
         backgroundColor: Colors.blue[700],
       ),
-
       body: Column(
         children: [
           Expanded(
@@ -48,10 +47,31 @@ class _ManHinhChinhState extends State<ManHinhChinh> {
                   return const SizedBox();
                 }
 
-                return ListTile(
-                  leading: Icon(dsicon[index]),
-                  title: Text(ds[index]),
-                  subtitle: Text(dsnhietdo[index]),
+                return Card(
+                  margin:
+                      const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                  elevation: 4,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20), 
+                  ),
+                  child: ListTile(
+                    leading: Icon(
+                      dsicon[index],
+                      size: 32,
+                      color: Colors.orange,
+                    ),
+                    title: Text(
+                      ds[index],
+                      style: const TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    subtitle: Text(
+                      dsnhietdo[index],
+                      style: const TextStyle(fontSize: 16),
+                    ),
+                  ),
                 );
               },
             ),
