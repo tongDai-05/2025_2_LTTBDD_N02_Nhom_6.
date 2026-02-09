@@ -125,7 +125,6 @@ class _ManHinhChinhState extends State<ManHinhChinh> {
     );
   }
 }
-
 class ChiTietThoiTiet extends StatelessWidget {
   String tenTP;
   String nhietDo;
@@ -137,7 +136,6 @@ class ChiTietThoiTiet extends StatelessWidget {
     required this.nhietDo,
     required this.moTa,
   });
-
   String getImageByWeather() {
     if (moTa == 'Nhiều mây') {
       return 'imgs/nhieumay.jpg';
@@ -147,18 +145,10 @@ class ChiTietThoiTiet extends StatelessWidget {
       return 'imgs/nang.jpg';
     }
   }
-
   List gio = ['0h', '3h', '6h', '9h', '12h', '15h', '18h', '21h', '24h'];
+
   List nhietDoTheoGio = [
-    '24°C',
-    '23°C',
-    '25°C',
-    '28°C',
-    '32°C',
-    '33°C',
-    '30°C',
-    '27°C',
-    '25°C',
+    '24°C','23°C','25°C','28°C','32°C','33°C','30°C','27°C','25°C'
   ];
   List iconTheoGio = [
     Icons.nights_stay,
@@ -171,36 +161,66 @@ class ChiTietThoiTiet extends StatelessWidget {
     Icons.cloud,
     Icons.nights_stay,
   ];
-
+  List ngay7 = [
+    'Thứ 2','Thứ 3','Thứ 4','Thứ 5','Thứ 6','Thứ 7','CN'
+  ];
+  List nhietDo7Ngay = [
+    '32°C','31°C','30°C','29°C','33°C','34°C','32°C'
+  ];
+  List icon7Ngay = [
+    Icons.wb_sunny,
+    Icons.cloud,
+    Icons.cloud,
+    Icons.wb_sunny,
+    Icons.thunderstorm,
+    Icons.wb_sunny,
+    Icons.wb_sunny,
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text("Chi tiết $tenTP"),
         backgroundColor: Colors.blue[700],
+        centerTitle: true,
       ),
       body: SingleChildScrollView(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center, 
           children: [
             const SizedBox(height: 20),
             Text(
               tenTP,
-              style: const TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                fontSize: 30,
+                fontWeight: FontWeight.bold,
+              ),
             ),
             const SizedBox(height: 10),
-            Image.asset(
-              getImageByWeather(),
-              height: 200,
-              width: 200,
-              fit: BoxFit.cover,
+            Center(
+              child: Image.asset(
+                getImageByWeather(),
+                height: 200,
+                width: 200,
+                fit: BoxFit.cover,
+              ),
             ),
             const SizedBox(height: 10),
             Text(
+              'Hôm nay, ${DateTime.now().day}/${DateTime.now().month}/${DateTime.now().year}',
+              textAlign: TextAlign.center,
+              style: const TextStyle(fontSize: 18, color: Colors.grey),
+            ),
+            const SizedBox(height: 6),
+            Text(
               nhietDo,
+              textAlign: TextAlign.center,
               style: const TextStyle(fontSize: 26, color: Colors.red),
             ),
             Text(
               moTa,
+              textAlign: TextAlign.center,
               style: const TextStyle(fontSize: 22, color: Colors.orange),
             ),
             const SizedBox(height: 20),
@@ -209,58 +229,103 @@ class ChiTietThoiTiet extends StatelessWidget {
               style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 12),
-            LayoutBuilder(
-              builder: (context, constraints) {
-                double itemWidth = constraints.maxWidth / gio.length;
-
-                return Row(
-                  children: List.generate(gio.length, (index) {
-                    return SizedBox(
-                      width: itemWidth,
-                      child: Container(
-                        margin: const EdgeInsets.symmetric(horizontal: 4),
-                        padding: const EdgeInsets.symmetric(vertical: 10),
-                        decoration: BoxDecoration(
-                          color: Colors.blue[50],
-                          borderRadius: BorderRadius.circular(18),
-                        ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              gio[index],
-                              style: const TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.bold,
-                              ),
+            SizedBox(
+              height: 140,
+              child: Center(
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  scrollDirection: Axis.horizontal,
+                  itemCount: gio.length,
+                  itemBuilder: (context, index) {
+                    return Container(
+                      width: 90,
+                      margin: const EdgeInsets.symmetric(horizontal: 6),
+                      padding: const EdgeInsets.symmetric(vertical: 10),
+                      decoration: BoxDecoration(
+                        color: Colors.blue[50],
+                        borderRadius: BorderRadius.circular(18),
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            gio[index],
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold,
                             ),
-                            const SizedBox(height: 6),
-                            Icon(
-                              iconTheoGio[index],
-                              color: Colors.orange,
-                              size: 32,
-                            ),
-                            const SizedBox(height: 6),
-                            Text(
-                              nhietDoTheoGio[index],
-                              style: const TextStyle(fontSize: 14),
-                            ),
-                          ],
-                        ),
+                          ),
+                          const SizedBox(height: 6),
+                          Icon(
+                            iconTheoGio[index],
+                            color: Colors.orange,
+                            size: 32,
+                          ),
+                          const SizedBox(height: 6),
+                          Text(
+                            nhietDoTheoGio[index],
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(fontSize: 14),
+                          ),
+                        ],
                       ),
                     );
-                  }),
+                  },
+                ),
+              ),
+            ),
+            const SizedBox(height: 30),
+            const Text(
+              "Dự báo 7 ngày",
+              style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 10),
+            ListView.builder(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: ngay7.length,
+              itemBuilder: (context, index) {
+                return Card(
+                  margin: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 6,
+                  ),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(14),
+                  ),
+                  child: ListTile(
+                    leading: Icon(
+                      icon7Ngay[index],
+                      color: Colors.orange,
+                      size: 30,
+                    ),
+                    title: Text(
+                      ngay7[index],
+                      style: const TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    trailing: Text(
+                      nhietDo7Ngay[index],
+                      style: const TextStyle(
+                        fontSize: 18,
+                        color: Colors.red,
+                      ),
+                    ),
+                  ),
                 );
               },
             ),
-            const SizedBox(height: 25),
+            const SizedBox(height: 20),
           ],
         ),
       ),
     );
   }
 }
-
 class TrangProfile extends StatelessWidget {
   TrangProfile({super.key});
   List avt = ['imgs/avt1.jpg', 'imgs/avt2.jpg'];
