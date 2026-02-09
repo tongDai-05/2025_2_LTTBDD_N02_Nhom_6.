@@ -33,7 +33,15 @@ class _ManHinhChinhState extends State<ManHinhChinh> {
         ),
         actions: [
           IconButton(onPressed: () {}, icon: Icon(Icons.settings)),
-          IconButton(onPressed: () {}, icon: Icon(Icons.person)),
+          IconButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => (TrangProfile())),
+              );
+            },
+            icon: Icon(Icons.person),
+          ),
         ],
       ),
       body: Column(
@@ -172,6 +180,52 @@ class ChiTietThoiTiet extends StatelessWidget {
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class TrangProfile extends StatelessWidget {
+  TrangProfile({super.key});
+  List avt = ['imgs/avt1.jpg', 'imgs/avt2.jpg'];
+  List ten = ['Tống Sỹ Đại', 'Nguyễn Tiến Dũng'];
+  List msv = ['23010037', '23010086'];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text(
+          "Thành viên phát triển",
+          style: TextStyle(color: Colors.white),
+        ),
+        backgroundColor: Colors.blue[700],
+      ),
+      body: ListView.builder(
+        itemCount: ten.length,
+        itemBuilder: (context, index) {
+          return Card(
+            margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+            elevation: 4,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16),
+            ),
+            child: ListTile(
+              leading: CircleAvatar(
+                radius: 28,
+                backgroundImage: AssetImage(avt[index]),
+              ),
+              title: Text(
+                ten[index],
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
+              subtitle: Text(
+                "MSV: ${msv[index]}",
+                style: TextStyle(fontSize: 16),
+              ),
+            ),
+          );
+        },
       ),
     );
   }
