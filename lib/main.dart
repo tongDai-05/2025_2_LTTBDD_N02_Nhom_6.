@@ -23,7 +23,7 @@ class _ManHinhChinhState extends State<ManHinhChinh> {
         backgroundColor: Colors.blue[700],
         title: Row(
           children: [
-            Image.asset('imgs/icon.jpg', width: 30, height: 30),
+            Image.asset('imgs/icon.jpg', width: 50, height: 50),
             const SizedBox(width: 10),
             const Text(
               'Dự báo Thời tiết',
@@ -31,6 +31,10 @@ class _ManHinhChinhState extends State<ManHinhChinh> {
             ),
           ],
         ),
+        actions: [
+          IconButton(onPressed: () {}, icon: Icon(Icons.settings)),
+          IconButton(onPressed: () {}, icon: Icon(Icons.person)),
+        ],
       ),
       body: Column(
         children: [
@@ -126,7 +130,7 @@ class ChiTietThoiTiet extends StatelessWidget {
       return 'imgs/nhieumay.jpg';
     } else if (moTa == 'Có mưa, Cảnh báo sấm sét') {
       return 'imgs/mua.jpg';
-    } else{
+    } else {
       return 'imgs/nang.jpg';
     }
   }
