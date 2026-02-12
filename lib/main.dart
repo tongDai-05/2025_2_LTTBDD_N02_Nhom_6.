@@ -1,15 +1,109 @@
 import 'package:flutter/material.dart';
+import 'package:bai_tap_lon_cuoi_ki/l10n/app_localizations.dart';
+import 'package:intl/intl.dart';
 
 void main() {
-  runApp(
-    MaterialApp(
-      home: ManHinhChinh(),
-      debugShowCheckedModeBanner: false,
-    ),
-  );
+  runApp(const MyApp());
 }
 
+class MyApp extends StatefulWidget {
+  const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  Locale _locale = const Locale('vi');
+
+  void _setLocale(Locale newLocale) {
+    setState(() {
+      _locale = newLocale;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      locale: _locale,
+      localizationsDelegates:
+          AppLocalizations.localizationsDelegates,
+      supportedLocales:
+          AppLocalizations.supportedLocales,
+      home: ManHinhChinh(
+        locale: _locale,
+        onLocaleChanged: _setLocale,
+      ),
+    );
+  }
+}
+
+class SettingsPage extends StatelessWidget {
+  final Locale currentLocale;
+  final ValueChanged<Locale> onLocaleChanged;
+
+  const SettingsPage({
+    super.key,
+    required this.currentLocale,
+    required this.onLocaleChanged,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.blue[800],
+        foregroundColor: Colors.white,
+        title: Text(l10n.setting),
+      ),
+      body: Column(
+        children: [
+          ListTile(
+            title: Text(l10n.languageTitle),
+          ),
+          ListTile(
+            title: Text(l10n.languageVietnamese),
+            trailing:
+                currentLocale.languageCode == 'vi'
+                ? const Icon(Icons.check)
+                : null,
+            onTap: () {
+              onLocaleChanged(const Locale('vi'));
+              Navigator.pop(context);
+            },
+          ),
+          ListTile(
+            title: Text(l10n.languageEnglish),
+            trailing:
+                currentLocale.languageCode == 'en'
+                ? const Icon(Icons.check)
+                : null,
+            onTap: () {
+              onLocaleChanged(const Locale('en'));
+              Navigator.pop(context);
+            },
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+enum WeatherType { sunny, stormWarning, cloudy }
+
 class ManHinhChinh extends StatefulWidget {
+  final Locale locale;
+  final ValueChanged<Locale> onLocaleChanged;
+
+  const ManHinhChinh({
+    super.key,
+    required this.locale,
+    required this.onLocaleChanged,
+  });
+
   @override
   State<ManHinhChinh> createState() =>
       _ManHinhChinhState();
@@ -24,15 +118,17 @@ class _ManHinhChinhState
     Icons.thunderstorm,
     Icons.cloud,
   ];
-  List dsMoTa = [
-    'Có nắng',
-    'Có mưa, Cảnh báo sấm sét',
-    'Nhiều mây',
+  List<WeatherType> dsWeather = [
+    WeatherType.sunny,
+    WeatherType.stormWarning,
+    WeatherType.cloudy,
   ];
 
   String keyword = "";
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.blue[800],
@@ -44,8 +140,8 @@ class _ManHinhChinhState
               height: 50,
             ),
             const SizedBox(width: 30),
-            const Text(
-              'Dự báo thời tiết',
+            Text(
+              l10n.appTitle,
               style: TextStyle(
                 fontSize: 32,
                 color: Colors.white,
@@ -56,7 +152,20 @@ class _ManHinhChinhState
         ),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) =>
+                      SettingsPage(
+                        currentLocale:
+                            widget.locale,
+                        onLocaleChanged: widget
+                            .onLocaleChanged,
+                      ),
+                ),
+              );
+            },
             icon: Icon(
               Icons.settings,
               color: Colors.white,
@@ -102,7 +211,8 @@ class _ManHinhChinhState
                               tenTP: ds[index],
                               nhietDo:
                                   dsnhietdo[index],
-                              moTa: dsMoTa[index],
+                              weatherType:
+                                  dsWeather[index],
                             ),
                       ),
                     );
@@ -146,9 +256,7 @@ class _ManHinhChinhState
               },
             ),
           ),
-          Text(
-            "Số thành phố hiện tại: ${ds.length}",
-          ),
+          Text(l10n.currentCityCount(ds.length)),
           Padding(
             padding: const EdgeInsets.fromLTRB(
               12,
@@ -158,7 +266,7 @@ class _ManHinhChinhState
             ),
             child: TextField(
               decoration: InputDecoration(
-                hintText: "Tìm thành phố...",
+                hintText: l10n.searchCityHint,
                 prefixIcon: const Icon(
                   Icons.search,
                 ),
@@ -183,22 +291,34 @@ class _ManHinhChinhState
 class ChiTietThoiTiet extends StatelessWidget {
   String tenTP;
   String nhietDo;
-  String moTa;
+  WeatherType weatherType;
 
   ChiTietThoiTiet({
     super.key,
     required this.tenTP,
     required this.nhietDo,
-    required this.moTa,
+    required this.weatherType,
   });
+
   String getImageByWeather() {
-    if (moTa == 'Nhiều mây') {
-      return 'imgs/nhieumay.jpg';
-    } else if (moTa ==
-        'Có mưa, Cảnh báo sấm sét') {
-      return 'imgs/mua.jpg';
-    } else {
-      return 'imgs/nang.jpg';
+    switch (weatherType) {
+      case WeatherType.cloudy:
+        return 'imgs/nhieumay.jpg';
+      case WeatherType.stormWarning:
+        return 'imgs/mua.jpg';
+      case WeatherType.sunny:
+        return 'imgs/nang.jpg';
+    }
+  }
+
+  String getWeatherText(AppLocalizations l10n) {
+    switch (weatherType) {
+      case WeatherType.sunny:
+        return l10n.weatherSunny;
+      case WeatherType.stormWarning:
+        return l10n.weatherStormWarning;
+      case WeatherType.cloudy:
+        return l10n.weatherCloudy;
     }
   }
 
@@ -265,10 +385,24 @@ class ChiTietThoiTiet extends StatelessWidget {
   ];
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    final localeName = Localizations.localeOf(
+      context,
+    ).toString();
+    final todayFormatted = DateFormat.yMd(
+      localeName,
+    ).format(DateTime.now());
+    final days7 = List.generate(
+      7,
+      (index) => DateFormat.E(localeName).format(
+        DateTime.now().add(Duration(days: index)),
+      ),
+    );
+
     return Scaffold(
       appBar: AppBar(
         foregroundColor: Colors.white,
-        title: Text("Chi tiết $tenTP"),
+        title: Text(l10n.detailTitle(tenTP)),
         titleTextStyle: TextStyle(
           fontSize: 24,
           fontWeight: FontWeight.normal,
@@ -302,7 +436,7 @@ class ChiTietThoiTiet extends StatelessWidget {
             ),
             const SizedBox(height: 10),
             Text(
-              'Hôm nay, ${DateTime.now().day}/${DateTime.now().month}/${DateTime.now().year}',
+              l10n.todayWithDate(todayFormatted),
               textAlign: TextAlign.center,
               style: const TextStyle(
                 fontSize: 18,
@@ -319,7 +453,7 @@ class ChiTietThoiTiet extends StatelessWidget {
               ),
             ),
             Text(
-              moTa,
+              getWeatherText(l10n),
               textAlign: TextAlign.center,
               style: const TextStyle(
                 fontSize: 22,
@@ -327,8 +461,8 @@ class ChiTietThoiTiet extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 20),
-            const Text(
-              "Dự báo theo giờ",
+            Text(
+              l10n.hourlyForecast,
               style: TextStyle(
                 fontSize: 22,
                 fontWeight: FontWeight.bold,
@@ -409,8 +543,8 @@ class ChiTietThoiTiet extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 30),
-            const Text(
-              "Dự báo 7 ngày",
+            Text(
+              l10n.sevenDayForecast,
               style: TextStyle(
                 fontSize: 22,
                 fontWeight: FontWeight.bold,
@@ -440,7 +574,7 @@ class ChiTietThoiTiet extends StatelessWidget {
                       size: 30,
                     ),
                     title: Text(
-                      ngay7[index],
+                      days7[index],
                       style: const TextStyle(
                         fontSize: 18,
                         fontWeight:
@@ -474,11 +608,13 @@ class TrangProfile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
     return Scaffold(
       appBar: AppBar(
         foregroundColor: Colors.white,
-        title: const Text(
-          "Thành viên phát triển",
+        title: Text(
+          l10n.developersTitle,
           // style: TextStyle(color: Colors.white),
           // nếu cần chữ màu khác thì mới dùng style còn nếu đồng màu thì chỉ cần dùng foregroundColor
         ),
@@ -518,7 +654,7 @@ class TrangProfile extends StatelessWidget {
                 ),
               ),
               subtitle: Text(
-                "MSV: ${msv[index]}",
+                l10n.studentIdLabel(msv[index]),
                 style: TextStyle(fontSize: 16),
               ),
             ),

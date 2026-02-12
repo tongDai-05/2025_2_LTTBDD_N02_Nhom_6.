@@ -1,0 +1,48 @@
+{
+    "helloWorld": "Xin chào",
+    "setting": "Cài đặt",
+    "account": "Tài khoản",
+    "appTitle": "Dự báo thời tiết",
+    "languageTitle": "Ngôn ngữ",
+    "languageEnglish": "Tiếng Anh",
+    "languageVietnamese": "Tiếng Việt",
+    "searchCityHint": "Tìm thành phố...",
+    "currentCityCount": "Số thành phố hiện tại: {count}",
+    "@currentCityCount": {
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "detailTitle": "Chi tiết {city}",
+    "@detailTitle": {
+        "placeholders": {
+            "city": {
+                "type": "String"
+            }
+        }
+    },
+    "todayWithDate": "Hôm nay, {date}",
+    "@todayWithDate": {
+        "placeholders": {
+            "date": {
+                "type": "String"
+            }
+        }
+    },
+    "hourlyForecast": "Dự báo theo giờ",
+    "sevenDayForecast": "Dự báo 7 ngày",
+    "developersTitle": "Thành viên phát triển",
+    "studentIdLabel": "MSV: {id}",
+    "@studentIdLabel": {
+        "placeholders": {
+            "id": {
+                "type": "String"
+            }
+        }
+    },
+    "weatherSunny": "Có nắng",
+    "weatherCloudy": "Nhiều mây",
+    "weatherStormWarning": "Có mưa, Cảnh báo sấm sét"
+}

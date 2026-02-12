@@ -1,0 +1,48 @@
+{
+    "helloWorld": "Hello World",
+    "setting": "Settings",
+    "account": "Account",
+    "appTitle": "Weather Forecast",
+    "languageTitle": "Language",
+    "languageEnglish": "English",
+    "languageVietnamese": "Vietnamese",
+    "searchCityHint": "Search city...",
+    "currentCityCount": "Current cities: {count}",
+    "@currentCityCount": {
+        "placeholders": {
+            "count": {
+                "type": "int"
+            }
+        }
+    },
+    "detailTitle": "Details {city}",
+    "@detailTitle": {
+        "placeholders": {
+            "city": {
+                "type": "String"
+            }
+        }
+    },
+    "todayWithDate": "Today, {date}",
+    "@todayWithDate": {
+        "placeholders": {
+            "date": {
+                "type": "String"
+            }
+        }
+    },
+    "hourlyForecast": "Hourly forecast",
+    "sevenDayForecast": "7-day forecast",
+    "developersTitle": "Development team",
+    "studentIdLabel": "Student ID: {id}",
+    "@studentIdLabel": {
+        "placeholders": {
+            "id": {
+                "type": "String"
+            }
+        }
+    },
+    "weatherSunny": "Sunny",
+    "weatherCloudy": "Cloudy",
+    "weatherStormWarning": "Rainy, thunderstorm warning"
+}
