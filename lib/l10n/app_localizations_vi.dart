@@ -18,7 +18,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get account => 'Tài khoản';
 
   @override
-  String get appTitle => 'Dự báo thời tiết';
+  String get appTitle => 'Thời tiết';
 
   @override
   String get languageTitle => 'Ngôn ngữ';

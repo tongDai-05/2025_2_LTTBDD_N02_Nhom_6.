@@ -18,7 +18,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get account => 'Account';
 
   @override
-  String get appTitle => 'Weather Forecast';
+  String get appTitle => 'Weather';
 
   @override
   String get languageTitle => 'Language';

@@ -119,7 +119,7 @@ abstract class AppLocalizations {
   /// No description provided for @appTitle.
   ///
   /// In en, this message translates to:
-  /// **'Weather Forecast'**
+  /// **'Weather'**
   String get appTitle;
 
   /// No description provided for @languageTitle.
