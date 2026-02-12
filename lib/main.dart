@@ -1,19 +1,34 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(MaterialApp(home: ManHinhChinh(), debugShowCheckedModeBanner: false));
+  runApp(
+    MaterialApp(
+      home: ManHinhChinh(),
+      debugShowCheckedModeBanner: false,
+    ),
+  );
 }
 
 class ManHinhChinh extends StatefulWidget {
   @override
-  State<ManHinhChinh> createState() => _ManHinhChinhState();
+  State<ManHinhChinh> createState() =>
+      _ManHinhChinhState();
 }
 
-class _ManHinhChinhState extends State<ManHinhChinh> {
+class _ManHinhChinhState
+    extends State<ManHinhChinh> {
   List ds = ['Hà Nội', 'TP.HCM', 'Đà Nẵng'];
   List dsnhietdo = ['32°C', '20°C', '24°C'];
-  List dsicon = [Icons.wb_sunny, Icons.thunderstorm, Icons.cloud];
-  List dsMoTa = ['Có nắng', 'Có mưa, Cảnh báo sấm sét', 'Nhiều mây'];
+  List dsicon = [
+    Icons.wb_sunny,
+    Icons.thunderstorm,
+    Icons.cloud,
+  ];
+  List dsMoTa = [
+    'Có nắng',
+    'Có mưa, Cảnh báo sấm sét',
+    'Nhiều mây',
+  ];
 
   String keyword = "";
   @override
@@ -23,12 +38,16 @@ class _ManHinhChinhState extends State<ManHinhChinh> {
         backgroundColor: Colors.blue[800],
         title: Row(
           children: [
-            Image.asset('imgs/icon.jpg', width: 50, height: 50),
+            Image.asset(
+              'imgs/icon.png',
+              width: 50,
+              height: 50,
+            ),
             const SizedBox(width: 30),
             const Text(
-              'Dự báo Thời tiết',
+              'Dự báo thời tiết',
               style: TextStyle(
-                fontSize: 35,
+                fontSize: 32,
                 color: Colors.white,
                 fontWeight: FontWeight.bold,
               ),
@@ -36,15 +55,27 @@ class _ManHinhChinhState extends State<ManHinhChinh> {
           ],
         ),
         actions: [
-          IconButton(onPressed: () {}, icon: Icon(Icons.settings)),
+          IconButton(
+            onPressed: () {},
+            icon: Icon(
+              Icons.settings,
+              color: Colors.white,
+            ),
+          ),
           IconButton(
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => TrangProfile()),
+                MaterialPageRoute(
+                  builder: (context) =>
+                      TrangProfile(),
+                ),
               );
             },
-            icon: Icon(Icons.person),
+            icon: Icon(
+              Icons.person,
+              color: Colors.white,
+            ),
           ),
         ],
       ),
@@ -54,7 +85,11 @@ class _ManHinhChinhState extends State<ManHinhChinh> {
             child: ListView.builder(
               itemCount: ds.length,
               itemBuilder: (context, index) {
-                if (!ds[index].toLowerCase().contains(keyword.toLowerCase())) {
+                if (!ds[index]
+                    .toLowerCase()
+                    .contains(
+                      keyword.toLowerCase(),
+                    )) {
                   return const SizedBox();
                 }
                 return GestureDetector(
@@ -62,22 +97,28 @@ class _ManHinhChinhState extends State<ManHinhChinh> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => ChiTietThoiTiet(
-                          tenTP: ds[index],
-                          nhietDo: dsnhietdo[index],
-                          moTa: dsMoTa[index],
-                        ),
+                        builder: (context) =>
+                            ChiTietThoiTiet(
+                              tenTP: ds[index],
+                              nhietDo:
+                                  dsnhietdo[index],
+                              moTa: dsMoTa[index],
+                            ),
                       ),
                     );
                   },
                   child: Card(
-                    margin: const EdgeInsets.symmetric(
-                      horizontal: 12,
-                      vertical: 8,
-                    ),
+                    margin:
+                        const EdgeInsets.symmetric(
+                          horizontal: 12,
+                          vertical: 8,
+                        ),
                     elevation: 4,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
+                      borderRadius:
+                          BorderRadius.circular(
+                            20,
+                          ),
                     ),
                     child: ListTile(
                       leading: Icon(
@@ -89,12 +130,15 @@ class _ManHinhChinhState extends State<ManHinhChinh> {
                         ds[index],
                         style: const TextStyle(
                           fontSize: 20,
-                          fontWeight: FontWeight.bold,
+                          fontWeight:
+                              FontWeight.bold,
                         ),
                       ),
                       subtitle: Text(
                         dsnhietdo[index],
-                        style: const TextStyle(fontSize: 16),
+                        style: const TextStyle(
+                          fontSize: 16,
+                        ),
                       ),
                     ),
                   ),
@@ -102,15 +146,25 @@ class _ManHinhChinhState extends State<ManHinhChinh> {
               },
             ),
           ),
-          Text("Số thành phố hiện tại: ${ds.length}"),
+          Text(
+            "Số thành phố hiện tại: ${ds.length}",
+          ),
           Padding(
-            padding: const EdgeInsets.all(12),
+            padding: const EdgeInsets.fromLTRB(
+              12,
+              12,
+              12,
+              30,
+            ),
             child: TextField(
               decoration: InputDecoration(
                 hintText: "Tìm thành phố...",
-                prefixIcon: const Icon(Icons.search),
+                prefixIcon: const Icon(
+                  Icons.search,
+                ),
                 border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12),
+                  borderRadius:
+                      BorderRadius.circular(12),
                 ),
               ),
               onChanged: (value) {
@@ -125,6 +179,7 @@ class _ManHinhChinhState extends State<ManHinhChinh> {
     );
   }
 }
+
 class ChiTietThoiTiet extends StatelessWidget {
   String tenTP;
   String nhietDo;
@@ -139,16 +194,36 @@ class ChiTietThoiTiet extends StatelessWidget {
   String getImageByWeather() {
     if (moTa == 'Nhiều mây') {
       return 'imgs/nhieumay.jpg';
-    } else if (moTa == 'Có mưa, Cảnh báo sấm sét') {
+    } else if (moTa ==
+        'Có mưa, Cảnh báo sấm sét') {
       return 'imgs/mua.jpg';
     } else {
       return 'imgs/nang.jpg';
     }
   }
-  List gio = ['0h', '3h', '6h', '9h', '12h', '15h', '18h', '21h', '24h'];
+
+  List gio = [
+    '0h',
+    '3h',
+    '6h',
+    '9h',
+    '12h',
+    '15h',
+    '18h',
+    '21h',
+    '24h',
+  ];
 
   List nhietDoTheoGio = [
-    '24°C','23°C','25°C','28°C','32°C','33°C','30°C','27°C','25°C'
+    '24°C',
+    '23°C',
+    '25°C',
+    '28°C',
+    '32°C',
+    '33°C',
+    '30°C',
+    '27°C',
+    '25°C',
   ];
   List iconTheoGio = [
     Icons.nights_stay,
@@ -162,10 +237,22 @@ class ChiTietThoiTiet extends StatelessWidget {
     Icons.nights_stay,
   ];
   List ngay7 = [
-    'Thứ 2','Thứ 3','Thứ 4','Thứ 5','Thứ 6','Thứ 7','CN'
+    'Thứ 2',
+    'Thứ 3',
+    'Thứ 4',
+    'Thứ 5',
+    'Thứ 6',
+    'Thứ 7',
+    'CN',
   ];
   List nhietDo7Ngay = [
-    '32°C','31°C','30°C','29°C','33°C','34°C','32°C'
+    '32°C',
+    '31°C',
+    '30°C',
+    '29°C',
+    '33°C',
+    '34°C',
+    '32°C',
   ];
   List icon7Ngay = [
     Icons.wb_sunny,
@@ -180,13 +267,19 @@ class ChiTietThoiTiet extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        foregroundColor: Colors.white,
         title: Text("Chi tiết $tenTP"),
+        titleTextStyle: TextStyle(
+          fontSize: 24,
+          fontWeight: FontWeight.normal,
+        ),
         backgroundColor: Colors.blue[700],
         centerTitle: true,
       ),
       body: SingleChildScrollView(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center, 
+          crossAxisAlignment:
+              CrossAxisAlignment.center,
           children: [
             const SizedBox(height: 20),
             Text(
@@ -210,23 +303,35 @@ class ChiTietThoiTiet extends StatelessWidget {
             Text(
               'Hôm nay, ${DateTime.now().day}/${DateTime.now().month}/${DateTime.now().year}',
               textAlign: TextAlign.center,
-              style: const TextStyle(fontSize: 18, color: Colors.grey),
+              style: const TextStyle(
+                fontSize: 18,
+                color: Colors.grey,
+              ),
             ),
             const SizedBox(height: 6),
             Text(
               nhietDo,
               textAlign: TextAlign.center,
-              style: const TextStyle(fontSize: 26, color: Colors.red),
+              style: const TextStyle(
+                fontSize: 26,
+                color: Colors.red,
+              ),
             ),
             Text(
               moTa,
               textAlign: TextAlign.center,
-              style: const TextStyle(fontSize: 22, color: Colors.orange),
+              style: const TextStyle(
+                fontSize: 22,
+                color: Colors.orange,
+              ),
             ),
             const SizedBox(height: 20),
             const Text(
               "Dự báo theo giờ",
-              style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                fontSize: 22,
+                fontWeight: FontWeight.bold,
+              ),
             ),
             const SizedBox(height: 12),
             SizedBox(
@@ -234,40 +339,66 @@ class ChiTietThoiTiet extends StatelessWidget {
               child: Center(
                 child: ListView.builder(
                   shrinkWrap: true,
-                  scrollDirection: Axis.horizontal,
+                  scrollDirection:
+                      Axis.horizontal,
                   itemCount: gio.length,
                   itemBuilder: (context, index) {
                     return Container(
                       width: 90,
-                      margin: const EdgeInsets.symmetric(horizontal: 6),
-                      padding: const EdgeInsets.symmetric(vertical: 10),
+                      margin:
+                          const EdgeInsets.symmetric(
+                            horizontal: 6,
+                          ),
+                      padding:
+                          const EdgeInsets.symmetric(
+                            vertical: 10,
+                          ),
                       decoration: BoxDecoration(
                         color: Colors.blue[50],
-                        borderRadius: BorderRadius.circular(18),
+                        borderRadius:
+                            BorderRadius.circular(
+                              18,
+                            ),
                       ),
                       child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment:
+                            MainAxisAlignment
+                                .center,
+                        crossAxisAlignment:
+                            CrossAxisAlignment
+                                .center,
                         children: [
                           Text(
                             gio[index],
-                            textAlign: TextAlign.center,
-                            style: const TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.bold,
-                            ),
+                            textAlign:
+                                TextAlign.center,
+                            style:
+                                const TextStyle(
+                                  fontSize: 14,
+                                  fontWeight:
+                                      FontWeight
+                                          .bold,
+                                ),
                           ),
-                          const SizedBox(height: 6),
+                          const SizedBox(
+                            height: 6,
+                          ),
                           Icon(
                             iconTheoGio[index],
                             color: Colors.orange,
                             size: 32,
                           ),
-                          const SizedBox(height: 6),
+                          const SizedBox(
+                            height: 6,
+                          ),
                           Text(
                             nhietDoTheoGio[index],
-                            textAlign: TextAlign.center,
-                            style: const TextStyle(fontSize: 14),
+                            textAlign:
+                                TextAlign.center,
+                            style:
+                                const TextStyle(
+                                  fontSize: 14,
+                                ),
                           ),
                         ],
                       ),
@@ -279,21 +410,27 @@ class ChiTietThoiTiet extends StatelessWidget {
             const SizedBox(height: 30),
             const Text(
               "Dự báo 7 ngày",
-              style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                fontSize: 22,
+                fontWeight: FontWeight.bold,
+              ),
             ),
             const SizedBox(height: 10),
             ListView.builder(
               shrinkWrap: true,
-              physics: const NeverScrollableScrollPhysics(),
+              physics:
+                  const NeverScrollableScrollPhysics(),
               itemCount: ngay7.length,
               itemBuilder: (context, index) {
                 return Card(
-                  margin: const EdgeInsets.symmetric(
-                    horizontal: 12,
-                    vertical: 6,
-                  ),
+                  margin:
+                      const EdgeInsets.symmetric(
+                        horizontal: 12,
+                        vertical: 6,
+                      ),
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(14),
+                    borderRadius:
+                        BorderRadius.circular(14),
                   ),
                   child: ListTile(
                     leading: Icon(
@@ -305,7 +442,8 @@ class ChiTietThoiTiet extends StatelessWidget {
                       ngay7[index],
                       style: const TextStyle(
                         fontSize: 18,
-                        fontWeight: FontWeight.bold,
+                        fontWeight:
+                            FontWeight.bold,
                       ),
                     ),
                     trailing: Text(
@@ -326,6 +464,7 @@ class ChiTietThoiTiet extends StatelessWidget {
     );
   }
 }
+
 class TrangProfile extends StatelessWidget {
   TrangProfile({super.key});
   List avt = ['imgs/avt1.jpg', 'imgs/avt2.jpg'];
@@ -336,9 +475,11 @@ class TrangProfile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        foregroundColor: Colors.white,
         title: const Text(
           "Thành viên phát triển",
-          style: TextStyle(color: Colors.white),
+          // style: TextStyle(color: Colors.white),
+          // nếu cần chữ màu khác thì mới dùng style còn nếu đồng màu thì chỉ cần dùng foregroundColor
         ),
         backgroundColor: Colors.blue[700],
       ),
@@ -346,19 +487,29 @@ class TrangProfile extends StatelessWidget {
         itemCount: ten.length,
         itemBuilder: (context, index) {
           return Card(
-            margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+            margin: const EdgeInsets.symmetric(
+              horizontal: 12,
+              vertical: 8,
+            ),
             elevation: 4,
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(16),
+              borderRadius: BorderRadius.circular(
+                16,
+              ),
             ),
             child: ListTile(
               leading: CircleAvatar(
                 radius: 28,
-                backgroundImage: AssetImage(avt[index]),
+                backgroundImage: AssetImage(
+                  avt[index],
+                ),
               ),
               title: Text(
                 ten[index],
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
               subtitle: Text(
                 "MSV: ${msv[index]}",
