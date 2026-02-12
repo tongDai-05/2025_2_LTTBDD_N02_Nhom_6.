@@ -272,6 +272,7 @@ class ChiTietThoiTiet extends StatelessWidget {
         titleTextStyle: TextStyle(
           fontSize: 24,
           fontWeight: FontWeight.normal,
+          color: Colors.white,
         ),
         backgroundColor: Colors.blue[700],
         centerTitle: true,
@@ -480,6 +481,11 @@ class TrangProfile extends StatelessWidget {
           "Thành viên phát triển",
           // style: TextStyle(color: Colors.white),
           // nếu cần chữ màu khác thì mới dùng style còn nếu đồng màu thì chỉ cần dùng foregroundColor
+        ),
+        titleTextStyle: TextStyle(
+          fontSize: 24,
+          fontWeight: FontWeight.normal,
+          color: Colors.white,
         ),
         backgroundColor: Colors.blue[700],
       ),
