@@ -152,6 +152,24 @@ abstract class AppLocalizations {
   /// **'Current cities: {count}'**
   String currentCityCount(int count);
 
+  /// No description provided for @home.
+  ///
+  /// In en, this message translates to:
+  /// **'Home'**
+  String get home;
+
+  /// No description provided for @viewProfile.
+  ///
+  /// In en, this message translates to:
+  /// **'View Profile'**
+  String get viewProfile;
+
+  /// No description provided for @settinglag.
+  ///
+  /// In en, this message translates to:
+  /// **'Language'**
+  String get settinglag;
+
   /// No description provided for @detailTitle.
   ///
   /// In en, this message translates to:

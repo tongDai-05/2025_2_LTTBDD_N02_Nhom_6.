@@ -8,6 +8,9 @@
     "languageVietnamese": "Vietnamese",
     "searchCityHint": "Search city...",
     "currentCityCount": "Current cities: {count}",
+    "home": "Home",
+    "viewProfile": "View Profile",
+    "settinglag": "Language",
     "@currentCityCount": {
         "placeholders": {
             "count": {

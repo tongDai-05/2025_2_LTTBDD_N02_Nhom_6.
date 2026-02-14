@@ -38,6 +38,15 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String get home => 'Home';
+
+  @override
+  String get viewProfile => 'View Profile';
+
+  @override
+  String get settinglag => 'Language';
+
+  @override
   String detailTitle(String city) {
     return 'Details $city';
   }

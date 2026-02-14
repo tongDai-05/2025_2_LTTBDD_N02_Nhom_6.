@@ -8,6 +8,9 @@
     "languageVietnamese": "Tiếng Việt",
     "searchCityHint": "Tìm thành phố...",
     "currentCityCount": "Số thành phố hiện tại: {count}",
+    "home": "Trang chủ",
+    "viewProfile": "Xem thông tin",
+    "settinglag": "Ngôn ngữ",
     "@currentCityCount": {
         "placeholders": {
             "count": {

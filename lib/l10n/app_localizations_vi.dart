@@ -38,6 +38,15 @@ class AppLocalizationsVi extends AppLocalizations {
   }
 
   @override
+  String get home => 'Trang chủ';
+
+  @override
+  String get viewProfile => 'Xem thông tin';
+
+  @override
+  String get settinglag => 'Ngôn ngữ';
+
+  @override
   String detailTitle(String city) {
     return 'Chi tiết $city';
   }
