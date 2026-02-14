@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:bai_tap_lon_cuoi_ki/l10n/app_localizations.dart';
-import 'package:bai_tap_lon_cuoi_ki/Settings/setting.dart';
+import 'package:bai_tap_lon_cuoi_ki/Settings/languague.dart';
 import 'package:intl/intl.dart';
 
 void main() {
   runApp(const MyApp());
 }
+
+enum WeatherType { sunny, stormWarning, cloudy }
 
 class ChiTietThoiTiet extends StatelessWidget {
   String tenTP;

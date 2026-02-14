@@ -1,6 +1,6 @@
 import 'package:bai_tap_lon_cuoi_ki/Content/chitietthoitiet.dart';
 import 'package:flutter/material.dart';
-import 'package:bai_tap_lon_cuoi_ki/Settings/setting.dart';
+import 'package:bai_tap_lon_cuoi_ki/Settings/languague.dart';
 import 'package:bai_tap_lon_cuoi_ki/Settings/profile.dart';
 import 'package:bai_tap_lon_cuoi_ki/l10n/app_localizations.dart';
 
@@ -104,6 +104,27 @@ class _ManHinhChinhState
       ),
       body: Column(
         children: [
+          Padding(
+            padding: const EdgeInsets.all(12),
+            child: TextField(
+              decoration: InputDecoration(
+                hintText: l10n.searchCityHint,
+                prefixIcon: const Icon(
+                  Icons.search,
+                ),
+                border: OutlineInputBorder(
+                  borderRadius:
+                      BorderRadius.circular(12),
+                ),
+              ),
+              onChanged: (value) {
+                setState(() {
+                  keyword = value;
+                });
+              },
+            ),
+          ),
+          Text(l10n.currentCityCount(ds.length)),
           Expanded(
             child: ListView.builder(
               itemCount: ds.length,
@@ -167,32 +188,6 @@ class _ManHinhChinhState
                     ),
                   ),
                 );
-              },
-            ),
-          ),
-          Text(l10n.currentCityCount(ds.length)),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(
-              12,
-              12,
-              12,
-              30,
-            ),
-            child: TextField(
-              decoration: InputDecoration(
-                hintText: l10n.searchCityHint,
-                prefixIcon: const Icon(
-                  Icons.search,
-                ),
-                border: OutlineInputBorder(
-                  borderRadius:
-                      BorderRadius.circular(12),
-                ),
-              ),
-              onChanged: (value) {
-                setState(() {
-                  keyword = value;
-                });
               },
             ),
           ),

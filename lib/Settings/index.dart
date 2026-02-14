@@ -1,5 +1,5 @@
 import 'package:bai_tap_lon_cuoi_ki/Settings/profile.dart';
-import 'package:bai_tap_lon_cuoi_ki/Settings/setting.dart';
+import 'package:bai_tap_lon_cuoi_ki/Settings/languague.dart';
 import 'package:bai_tap_lon_cuoi_ki/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 
@@ -13,88 +13,108 @@ class SettingsIndexPage extends StatelessWidget {
     required this.onLocaleChanged,
   });
 
-  ButtonStyle _buttonStyle(BuildContext context) {
-    final colorScheme = Theme.of(
-      context,
-    ).colorScheme;
-    return ElevatedButton.styleFrom(
-      backgroundColor: colorScheme.primary,
-      foregroundColor: colorScheme.onPrimary,
-      minimumSize: const Size.fromHeight(52),
-      padding: const EdgeInsets.symmetric(
-        horizontal: 16,
-        vertical: 14,
-      ),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(14),
-      ),
-      textStyle: const TextStyle(
-        fontSize: 18,
-        fontWeight: FontWeight.w600,
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          AppLocalizations.of(context)!.setting,
-        ),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment:
-              CrossAxisAlignment.stretch,
+        backgroundColor: Colors.blue[800],
+        foregroundColor: Colors.white,
+        title: Row(
           children: [
-            ElevatedButton.icon(
-              style: _buttonStyle(context),
-              onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (_) =>
-                        TrangProfile(),
-                  ),
-                );
-              },
-              icon: const Icon(
-                Icons.person_outline,
-              ),
-              label: Text(
-                AppLocalizations.of(
-                  context,
-                )!.viewProfile,
-              ),
+            Image.asset(
+              'imgs/icon.png',
+              width: 50,
+              height: 50,
             ),
-
-            const SizedBox(height: 12),
-            ElevatedButton.icon(
-              style: _buttonStyle(context),
-              onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (_) => SettingsPage(
-                      currentLocale:
-                          currentLocale,
-                      onLocaleChanged:
-                          onLocaleChanged,
-                    ),
-                  ),
-                );
-              },
-              icon: const Icon(
-                Icons.settings_outlined,
-              ),
-              label: Text(
-                AppLocalizations.of(
-                  context,
-                )!.settinglag,
+            const SizedBox(width: 30),
+            Text(
+              l10n.setting,
+              style: const TextStyle(
+                fontSize: 32,
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
               ),
             ),
           ],
         ),
+      ),
+      body: Column(
+        children: [
+          GestureDetector(
+            onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (_) => TrangProfile(),
+                ),
+              );
+            },
+            child: Card(
+              margin: const EdgeInsets.symmetric(
+                horizontal: 12,
+                vertical: 8,
+              ),
+              elevation: 4,
+              shape: RoundedRectangleBorder(
+                borderRadius:
+                    BorderRadius.circular(20),
+              ),
+              child: ListTile(
+                leading: const Icon(
+                  Icons.person_outline,
+                  size: 32,
+                  color: Colors.orange,
+                ),
+                title: Text(
+                  l10n.viewProfile,
+                  style: const TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ),
+          ),
+          GestureDetector(
+            onTap: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (_) => LanguaguesPage(
+                    currentLocale: currentLocale,
+                    onLocaleChanged:
+                        onLocaleChanged,
+                  ),
+                ),
+              );
+            },
+            child: Card(
+              margin: const EdgeInsets.symmetric(
+                horizontal: 12,
+                vertical: 8,
+              ),
+              elevation: 4,
+              shape: RoundedRectangleBorder(
+                borderRadius:
+                    BorderRadius.circular(20),
+              ),
+              child: ListTile(
+                leading: const Icon(
+                  Icons.language_outlined,
+                  size: 32,
+                  color: Colors.orange,
+                ),
+                title: Text(
+                  l10n.settinglag,
+                  style: const TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

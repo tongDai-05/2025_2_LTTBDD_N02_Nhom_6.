@@ -6,8 +6,6 @@ void main() {
   runApp(const MyApp());
 }
 
-enum WeatherType { sunny, stormWarning, cloudy }
-
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
@@ -41,11 +39,11 @@ class _MyAppState extends State<MyApp> {
   }
 }
 
-class SettingsPage extends StatelessWidget {
+class LanguaguesPage extends StatelessWidget {
   final Locale currentLocale;
   final ValueChanged<Locale> onLocaleChanged;
 
-  const SettingsPage({
+  const LanguaguesPage({
     super.key,
     required this.currentLocale,
     required this.onLocaleChanged,
@@ -59,13 +57,13 @@ class SettingsPage extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.blue[800],
         foregroundColor: Colors.white,
-        title: Text(l10n.setting),
+        title: Text(l10n.languageTitle),
       ),
       body: Column(
         children: [
-          ListTile(
-            title: Text(l10n.languageTitle),
-          ),
+          // ListTile(
+          //   title: Text(l10n.languageTitle),
+          // ),
           ListTile(
             title: Text(l10n.languageVietnamese),
             trailing:
