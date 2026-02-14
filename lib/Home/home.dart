@@ -1,8 +1,8 @@
 import 'package:bai_tap_lon_cuoi_ki/Content/chitietthoitiet.dart';
 import 'package:flutter/material.dart';
-import 'package:bai_tap_lon_cuoi_ki/Settings/languague.dart';
+import 'package:bai_tap_lon_cuoi_ki/Settings/Selection_languague.dart';
 import 'package:bai_tap_lon_cuoi_ki/Settings/profile.dart';
-import 'package:bai_tap_lon_cuoi_ki/l10n/app_localizations.dart';
+import 'package:bai_tap_lon_cuoi_ki/languages/app_localizations.dart';
 
 void main() {
   runApp(MaterialApp(home: MyApp()));

@@ -1,6 +1,6 @@
 import 'package:bai_tap_lon_cuoi_ki/Home/home.dart';
-import 'package:bai_tap_lon_cuoi_ki/Settings/index.dart';
-import 'package:bai_tap_lon_cuoi_ki/l10n/app_localizations.dart';
+import 'package:bai_tap_lon_cuoi_ki/Settings/Screen_selection.dart';
+import 'package:bai_tap_lon_cuoi_ki/languages/app_localizations.dart';
 import 'package:flutter/material.dart';
 
 void main() {

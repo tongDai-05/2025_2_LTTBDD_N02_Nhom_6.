@@ -1,31 +1,26 @@
-import 'package:bai_tap_lon_cuoi_ki/l10n/app_localizations.dart';
+import 'package:bai_tap_lon_cuoi_ki/languages/app_localizations.dart';
 import 'package:flutter/material.dart';
-
 void main() {
-  runApp(MaterialApp(home: TrangProfile()));
+  runApp(MaterialApp(
+    debugShowCheckedModeBanner: false,
+    home: TrangProfile(),
+  ));
 }
-
 class TrangProfile extends StatelessWidget {
   TrangProfile({super.key});
   List avt = ['imgs/avt1.jpg', 'imgs/avt2.jpg'];
   List ten = ['Tống Sỹ Đại', 'Nguyễn Tiến Dũng'];
   List msv = ['23010037', '23010086'];
-
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    final l10n = AppLocalizations.of(context);
 
     return Scaffold(
       appBar: AppBar(
         foregroundColor: Colors.white,
-        title: Text(
-          l10n.developersTitle,
-          // style: TextStyle(color: Colors.white),
-          // nếu cần chữ màu khác thì mới dùng style còn nếu đồng màu thì chỉ cần dùng foregroundColor
-        ),
-        titleTextStyle: TextStyle(
+        title: Text(l10n?.developersTitle ?? "Developers"),
+        titleTextStyle: const TextStyle(
           fontSize: 24,
-          fontWeight: FontWeight.normal,
           color: Colors.white,
         ),
         backgroundColor: Colors.blue[700],
@@ -40,31 +35,60 @@ class TrangProfile extends StatelessWidget {
             ),
             elevation: 4,
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(
-                16,
-              ),
+              borderRadius: BorderRadius.circular(16),
             ),
             child: ListTile(
-              leading: CircleAvatar(
-                radius: 28,
-                backgroundImage: AssetImage(
-                  avt[index],
+              leading: GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => FullScreenImage(
+                        imagePath: avt[index],
+                      ),
+                    ),
+                  );
+                },
+                child: CircleAvatar(
+                  radius: 28,
+                  backgroundImage: AssetImage(avt[index]),
                 ),
               ),
               title: Text(
                 ten[index],
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
                 ),
               ),
               subtitle: Text(
-                l10n.studentIdLabel(msv[index]),
-                style: TextStyle(fontSize: 16),
+                l10n?.studentIdLabel(msv[index]) ??
+                    "MSV: ${msv[index]}",
+                style: const TextStyle(fontSize: 16),
               ),
             ),
           );
         },
+      ),
+    );
+  }
+}
+class FullScreenImage extends StatelessWidget {
+  final String imagePath;
+  const FullScreenImage({super.key, required this.imagePath});
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.black,
+      body: GestureDetector(
+        onTap: () => Navigator.pop(context),
+        child: Center(
+          child: InteractiveViewer(
+            minScale: 0.5,
+            maxScale: 4,
+            child: Image.asset(imagePath),
+          ),
+        ),
       ),
     );
   }
