@@ -52,7 +52,7 @@ class ChiTietThoiTiet extends StatelessWidget {
     '15h',
     '18h',
     '21h',
-    '24h',
+    '0h',
   ];
 
   List nhietDoTheoGio = [
